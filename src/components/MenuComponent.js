@@ -1,31 +1,32 @@
 import React, {Component} from 'react';
-import { DISHES } from '../shared/dishes';
-import  DishDetail  from './DishdetailComponent';
+import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
 
 class Menu extends Component {
     
     constructor(props){
         super(props);
         
-        this.state = {
-            dish: DISHES
-        }
-
-    console.log('Menu Component constructor is invoked');
-}
-
-componentDidMount() {
-    console.log('Menu Component componentDidMount is invoked');
 }
 
 render() {
 
-    console.log('Menu Component render is invoked');
+    const menu = this.props.dishes.map((dish) => {
+        return(
+            <div key={dish.id} className="col-12 col-md-5 m-1">
+                <Card onClick={() => this.props.onClick(dish.id)}>
+                    <CardImg width="100%" object src={dish.image} alt={dish.name}/>
+                    <CardImgOverlay>
+                        <CardTitle><h4>{dish.name}</h4></CardTitle>
+                    </CardImgOverlay>
+                </Card>
+            </div>
+        );
+    });
 
     return(
          <div className="container">
             <div className='row'>
-             <DishDetail dish={this.state.dish} />
+             {menu}
             </div>
          </div>
     );
